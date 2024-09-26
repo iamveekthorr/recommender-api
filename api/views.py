@@ -1,9 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Products, Order
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
+import requests
 
 
 
@@ -12,31 +12,29 @@ import pandas as pd
 class RecommendationView(APIView):
 
     def get(self, request, user_id):
-        # user_id = id
-        print(user_id, 'user id...')
-
         if not user_id:
-            print(user_id, 'id')
             return Response({"error": "User ID is required"}, status=400)
+        
+        res = requests.get(f'https://dimeji-masters.onrender.com/v1/{user_id}')
+
+        json_response = res.json()
 
         # Get user's order history
-        user_orders = Order.objects.filter(user=user_id)
+        user_orders = json_response['data']['orders']
 
         user_products = set()
         for order in user_orders:
-            print(len(user_orders), 'user orders....')
-
-            for item in order.items:
-                print(item, 'orders...')
-                user_products.add(item['product'])
-
+            order_items = order.get('items')
+            for item in order_items:
+                print(item['product'], 'order...')
+                user_products.add(item['product'].get('id'))
         # Get all products
-        all_products = Products.objects.all()
+        all_products = json_response['data']['products']
 
-        print(len(Products.objects.all()), 'all')
+        print(len(all_products), 'all')
         # Create a DataFrame for content-based filtering
-        df = pd.DataFrame(list(all_products.values()))
-        print(list(all_products.values()),'tes....')
+        df = pd.DataFrame(list(all_products))
+        print(list(all_products),'tes....')
         df['content'] = df['productName'] + ' ' + df['category'] + ' ' + df['description']
 
         # TF-IDF Vectorization
@@ -63,4 +61,4 @@ class RecommendationView(APIView):
         # Get the recommended product details
         recommendations = df.iloc[recommended_products][['_id', 'productName', 'category', 'price']].to_dict('records')
 
-        return Response(recommendations)
+        return Response({ "status": 'success', "data": recommendations})
