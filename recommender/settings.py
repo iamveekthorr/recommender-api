@@ -23,12 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9-f++)8nvo&%eex7grwhu!8u27@mo=wr95k9zidb-116)n%=k@'
 
 
-import os
-from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = 'your-secret-key'
 DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -41,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
+    'recommender'
 ]
 
 MIDDLEWARE = [
@@ -76,9 +72,9 @@ WSGI_APPLICATION = 'recommender.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'Cluster0',
+        'NAME': 'retail-store',
         'CLIENT': {
-            'host': 'mongodb+srv://david:ofYVcKZYhEP4GOZv>@cluster0.giaox.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            'host': 'mongodb+srv://veekthorrdikeh:THafcuxIik0xK4PO@cluster0.giaox.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
         }
     }
 }
