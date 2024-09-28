@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'recommender',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -47,7 +48,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'recommender.urls'
 
@@ -68,16 +73,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'recommender.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'retail-store',
-        'CLIENT': {
-            'host': 'mongodb+srv://veekthorrdikeh:THafcuxIik0xK4PO@cluster0.giaox.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-        }
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

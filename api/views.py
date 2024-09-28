@@ -15,9 +15,11 @@ class RecommendationView(APIView):
         if not user_id:
             return Response({"error": "User ID is required"}, status=400)
         
-        res = requests.get(f'https://dimeji-masters.onrender.com/v1/{user_id}')
+        res = requests.get(f'https://dimeji-masters.onrender.com/v1/products/recommendations/{user_id}')
 
         json_response = res.json()
+
+        print(json_response, 'res...')
 
         # Get user's order history
         user_orders = json_response['data']['orders']
