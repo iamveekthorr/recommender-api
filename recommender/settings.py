@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9-f++)8nvo&%eex7grwhu!8u27@mo=wr95k9zidb-116)n%=k@
 
 
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['recommender-api-prp9.onrender.com', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
