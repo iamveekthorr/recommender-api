@@ -4,3 +4,4 @@ django-cors-headers
 gunicorn
 requests
 scikit-learn
+pandas
