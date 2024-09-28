@@ -19,8 +19,6 @@ class RecommendationView(APIView):
 
         json_response = res.json()
 
-        print(json_response, 'res...')
-
         # Get user's order history
         user_orders = json_response['data']['orders']
 
