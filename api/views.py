@@ -27,7 +27,7 @@ class RecommendationView(APIView):
         for order in user_orders:
             order_items = order.get('items')
             for item in order_items:
-                user_products.add(item['product'])
+                user_products.add(item['product'].get('id'))
         # Get all products
         all_products = json_response['data']['products']
 
