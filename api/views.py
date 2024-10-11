@@ -23,18 +23,16 @@ class RecommendationView(APIView):
         user_orders = json_response['data']['orders']
 
         user_products = set()
+        # BigO(n^2)
         for order in user_orders:
             order_items = order.get('items')
             for item in order_items:
-                print(item['product'], 'order...')
-                user_products.add(item['product'].get('id'))
+                user_products.add(item['product'])
         # Get all products
         all_products = json_response['data']['products']
 
-        print(len(all_products), 'all')
         # Create a DataFrame for content-based filtering
         df = pd.DataFrame(list(all_products))
-        print(list(all_products),'tes....')
         df['content'] = df['productName'] + ' ' + df['category'] + ' ' + df['description']
 
         # TF-IDF Vectorization
